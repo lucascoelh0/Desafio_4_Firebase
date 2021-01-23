@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.desafio4_firebase.fragments.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="com.example.desafio4_firebase.fragments.CadastroFragment"
+        android:label="CadastroFragment" >
+        <action
+            android:id="@+id/action_cadastroFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.desafio4_firebase.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_jogoFragment"
+            app:destination="@id/jogoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editarJogoFragment2"
+            app:destination="@id/editarJogoFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/jogoFragment"
+        android:name="com.example.desafio4_firebase.fragments.JogoFragment"
+        android:label="fragment_jogo"
+        tools:layout="@layout/fragment_jogo" >
+        <action
+            android:id="@+id/action_jogoFragment_to_editarJogoFragment2"
+            app:destination="@id/editarJogoFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarJogoFragment2"
+        android:name="com.example.desafio4_firebase.fragments.EditarJogoFragment"
+        android:label="fragment_editar_jogo"
+        tools:layout="@layout/fragment_editar_jogo" />
+</navigation>

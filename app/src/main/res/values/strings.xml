@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Desafio 4 - Firebase</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember">Remember</string>
+    <string name="log_in">LOG IN</string>
+    <string name="create_account">Create account</string>
+    <string name="name">Name</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="bloodborne">Bloodborne</string>
+    <string name="lancamento">Lançamento:</string>
+    <string name="_2015">2015</string>
+    <string name="descricao_bloodborne">Bloodborne é um RPG eletrônico de ação produzido pela FromSoftware e publicado pela Sony Computer Entertainment a 24 de março de 2015 em exclusivo para a PlayStation 4, sendo o quarto game da série Souls.
+\nBloodborne foi realizado por Hidetaka Miyazaki, diretor de Demon\'s Souls e Dark Souls. Miyazaki afirmou que o jogo nunca foi produzido com o sentido de ser Demon\'s Souls II, porque a Sony Computer Entertainment queria uma nova IP para a PlayStation 4. Foi anunciado pela Sony a 9 de junho de 2014 durante a Electronic Entertainment Expo 2014, onde foi bem recebido pela crítica ganhando diversos prêmios e nomeações. Bloodborne foi descrito por Paul Sullivan da Sony como “Dark Souls com Caçadeiras”.
+        \nBloodborne recebeu aclamação crítica aquando do seu lançamento. Nos sites de pontuações agregadas GameRankings e Metacritic tem as médias de 91,62% e 93/100, respectivamente. A atmosfera, o enredo, a música, a apresentação, a jogabilidade e a direção em geral, foram elogiadas. Uma das principais críticas foram dirigidas aos tempos de carregamento muito longos. No entanto, em 23 de abril de 2015, a From Software disponibilizou uma atualização que resolveu o problema.
+ </string>
+    <string name="created_at">Created at</string>
+    <string name="description">Description</string>
+    <string name="save_game">Save game</string>
+</resources>
