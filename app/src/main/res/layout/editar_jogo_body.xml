@@ -14,13 +14,13 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_marginTop="50dp"
                 android:id="@+id/etNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:background="@color/white"
                 android:hint="@string/name"
-                android:maxLines="1" />
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -34,8 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
+                android:inputType="number"
                 android:hint="@string/created_at"
-                android:maxLines="1" />
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,7 +52,6 @@
                 android:background="@color/white"
                 android:gravity="top|start"
                 android:hint="@string/description"
-                android:inputType="textPassword"
                 android:minLines="2" />
 
         </com.google.android.material.textfield.TextInputLayout>

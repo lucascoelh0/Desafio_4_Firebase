@@ -8,13 +8,21 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/navHostMain"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/navgraph" />
+
+        <include
+            android:id="@+id/includeToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

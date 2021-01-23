@@ -8,45 +8,56 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.desafio4_firebase.fragments.LoginFragment"
-        android:label="LoginFragment" >
+        android:label=""
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_cadastroFragment"
             app:destination="@id/cadastroFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
         android:name="com.example.desafio4_firebase.fragments.CadastroFragment"
-        android:label="CadastroFragment" >
+        android:label=""
+        tools:layout="@layout/fragment_cadastro">
         <action
             android:id="@+id/action_cadastroFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/cadastroFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.desafio4_firebase.fragments.HomeFragment"
-        android:label="HomeFragment" >
+        android:label=""
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_jogoFragment"
             app:destination="@id/jogoFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_editarJogoFragment2"
-            app:destination="@id/editarJogoFragment2" />
+            android:id="@+id/action_homeFragment_to_editarJogoFragment"
+            app:destination="@id/editarJogoFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/jogoFragment"
         android:name="com.example.desafio4_firebase.fragments.JogoFragment"
-        android:label="fragment_jogo"
-        tools:layout="@layout/fragment_jogo" >
+        android:label=""
+        tools:layout="@layout/fragment_jogo">
         <action
-            android:id="@+id/action_jogoFragment_to_editarJogoFragment2"
-            app:destination="@id/editarJogoFragment2" />
+            android:id="@+id/action_jogoFragment_to_editarJogoFragment"
+            app:destination="@id/editarJogoFragment"
+            app:popUpTo="@id/jogoFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/editarJogoFragment2"
+        android:id="@+id/editarJogoFragment"
         android:name="com.example.desafio4_firebase.fragments.EditarJogoFragment"
-        android:label="fragment_editar_jogo"
+        android:label=""
         tools:layout="@layout/fragment_editar_jogo" />
 </navigation>
