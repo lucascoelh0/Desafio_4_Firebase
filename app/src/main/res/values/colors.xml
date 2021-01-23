@@ -10,4 +10,5 @@
     <color name="vermelho_principal">#FF5252</color>
     <color name="azul">#00A6FF</color>
     <color name="cinza">#8492A6</color>
+    <color name="fundo">#DDD</color>
 </resources>
