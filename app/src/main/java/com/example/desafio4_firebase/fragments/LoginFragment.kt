@@ -23,10 +23,11 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel.config()
 
         binding.includeLoginBody.btnLogin.setOnClickListener {
             viewModel.goToHome()

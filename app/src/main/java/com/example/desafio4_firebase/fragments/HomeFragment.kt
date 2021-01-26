@@ -1,28 +1,28 @@
 package com.example.desafio4_firebase.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.desafio4_firebase.R
 import com.example.desafio4_firebase.adapters.JogoAdapter
 import com.example.desafio4_firebase.databinding.FragmentHomeBinding
-import com.example.desafio4_firebase.databinding.FragmentLoginBinding
 import com.example.desafio4_firebase.entities.EventObserver
+import com.example.desafio4_firebase.entities.Jogo
 import com.example.desafio4_firebase.viewmodels.MainViewModel
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 
 class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
 
     private lateinit var navController: NavController
     private lateinit var viewModel: MainViewModel
-    private lateinit var jogoAdapter: JogoAdapter
-
+    private var jogoAdapter: JogoAdapter? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -32,33 +32,46 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        viewModel.listJogos.observe(viewLifecycleOwner, {
 
-            jogoAdapter = viewModel.listJogos.value?.let { JogoAdapter(it, this) }!!
+        val query =
+            viewModel.dbFirestore.collection("produtos").orderBy("nome", Query.Direction.ASCENDING)
 
-            val recyclerView = binding.rvJogo
+        val options =
+            FirestoreRecyclerOptions.Builder<Jogo>().setQuery(query, Jogo::class.java).build()
 
-            recyclerView.adapter = jogoAdapter
-            recyclerView.layoutManager = GridLayoutManager(context, 2)
-            recyclerView.setHasFixedSize(true)
-        })
+        jogoAdapter = JogoAdapter(options, this)
+        binding.rvJogo.adapter = jogoAdapter
+        binding.rvJogo.layoutManager = GridLayoutManager(context, 2)
 
         binding.fabAdicionar.setOnClickListener {
-            viewModel.adicionar = true
-            viewModel.editar = false
-            viewModel.goToEditar()
+            viewModel.apply {
+                adicionar = true
+                editar = false
+                goToEditar()
+            }
         }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        jogoAdapter?.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if (jogoAdapter != null) {
+            jogoAdapter?.stopListening()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-
         viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
             navController.navigate(it)
         })
@@ -69,8 +82,8 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
         _binding = null
     }
 
-    override fun onClickJogo(position: Int) {
-        viewModel.posicaoAtual.value = position
+    override fun onClickJogo(documentSnapshot: DocumentSnapshot, position: Int) {
+        viewModel.jogoClicado = documentSnapshot.toObject(Jogo::class.java)!!
         viewModel.goToJogo()
     }
 }

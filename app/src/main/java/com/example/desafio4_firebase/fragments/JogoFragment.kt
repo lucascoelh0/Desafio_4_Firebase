@@ -24,21 +24,13 @@ class JogoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentJogoBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        viewModel.posicaoAtual.observe(viewLifecycleOwner, {
 
-            val jogoClicado = viewModel.posicaoAtual.value?.let { it1 ->
-                viewModel.listJogos.value?.get(it1)
-            }
-
-            if (jogoClicado != null) {
-                atualizarUi(jogoClicado)
-            }
-        })
+        atualizarUi()
 
         binding.fabEditar.setOnClickListener {
             viewModel.adicionar = true
@@ -64,14 +56,10 @@ class JogoFragment : Fragment() {
         _binding = null
     }
 
-    fun atualizarUi(jogoClicado: Jogo) {
-
-        TODO("Setar imagem da capa a partir do firestore")
-
-        binding.tvNomeJogoCapa.text = jogoClicado.nome
-        binding.tvNomeJogo.text = jogoClicado.nome
-        binding.tvAnoLancamento.text = jogoClicado.anoLancamento
-        binding.tvDescricaoJogo.text = jogoClicado.descricao
+    fun atualizarUi() {
+        binding.tvNomeJogoCapa.text = viewModel.jogoClicado.nome
+        binding.tvNomeJogo.text = viewModel.jogoClicado.nome
+        binding.tvAnoLancamento.text = viewModel.jogoClicado.anoLancamento
+        binding.tvDescricaoJogo.text = viewModel.jogoClicado.descricao
     }
-
 }
