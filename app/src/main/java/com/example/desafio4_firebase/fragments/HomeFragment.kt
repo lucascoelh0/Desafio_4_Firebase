@@ -1,5 +1,6 @@
 package com.example.desafio4_firebase.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +36,7 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         val query =
-            viewModel.dbFirestore.collection("produtos").orderBy("nome", Query.Direction.ASCENDING)
+            viewModel.dbFirestore.collection("produtos")//.orderBy("nome", Query.Direction.ASCENDING)
 
         val options =
             FirestoreRecyclerOptions.Builder<Jogo>().setQuery(query, Jogo::class.java).build()
@@ -58,6 +59,7 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
     override fun onStart() {
         super.onStart()
         jogoAdapter?.startListening()
+        viewModel.jogoClicado = Jogo()
     }
 
     override fun onStop() {

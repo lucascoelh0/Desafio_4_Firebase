@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.desafio4_firebase.databinding.FragmentJogoBinding
 import com.example.desafio4_firebase.entities.EventObserver
 import com.example.desafio4_firebase.entities.Jogo
@@ -61,5 +62,6 @@ class JogoFragment : Fragment() {
         binding.tvNomeJogo.text = viewModel.jogoClicado.nome
         binding.tvAnoLancamento.text = viewModel.jogoClicado.anoLancamento
         binding.tvDescricaoJogo.text = viewModel.jogoClicado.descricao
+        Glide.with(binding.root.context).load(viewModel.jogoClicado.urlImagem).into(binding.ivCapaJogo)
     }
 }

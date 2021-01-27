@@ -7,6 +7,8 @@ import com.example.desafio4_firebase.entities.Event
 import com.example.desafio4_firebase.entities.Jogo
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class MainViewModel : ViewModel() {
 

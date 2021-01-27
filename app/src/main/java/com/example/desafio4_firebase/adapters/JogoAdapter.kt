@@ -3,11 +3,13 @@ package com.example.desafio4_firebase.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.desafio4_firebase.databinding.ItemJogoBinding
 import com.example.desafio4_firebase.entities.Jogo
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.DocumentSnapshot
+import kotlin.coroutines.coroutineContext
 
 class JogoAdapter(
     options: FirestoreRecyclerOptions<Jogo>,
@@ -37,6 +39,7 @@ class JogoAdapter(
             itemBinding.apply {
                 tvNomeJogoItem.text = jogo.nome
                 tvAnoLancamentoItem.text = jogo.anoLancamento
+                Glide.with(itemBinding.root.context).load(jogo.urlImagem).into(ivCapaJogoItem)
             }
 
             itemBinding.root.setOnClickListener {

@@ -16,7 +16,7 @@
                 android:id="@+id/ivCapaJogo"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/landscape_game"
                 app:layout_constraintTop_toTopOf="parent" />
 
