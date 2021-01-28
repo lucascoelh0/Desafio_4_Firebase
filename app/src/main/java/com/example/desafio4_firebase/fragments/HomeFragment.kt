@@ -1,6 +1,5 @@
 package com.example.desafio4_firebase.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +29,13 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         val query =
-            viewModel.dbFirestore.collection("produtos")//.orderBy("nome", Query.Direction.ASCENDING)
+            viewModel.dbFirestore.collection("jogos").orderBy("nome", Query.Direction.ASCENDING)
 
         val options =
             FirestoreRecyclerOptions.Builder<Jogo>().setQuery(query, Jogo::class.java).build()
@@ -46,11 +45,7 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
         binding.rvJogo.layoutManager = GridLayoutManager(context, 2)
 
         binding.fabAdicionar.setOnClickListener {
-            viewModel.apply {
-                adicionar = true
-                editar = false
-                goToEditar()
-            }
+            viewModel.onClickFabAdicionar()
         }
 
         return binding.root
@@ -60,6 +55,7 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
         super.onStart()
         jogoAdapter?.startListening()
         viewModel.jogoClicado = Jogo()
+        viewModel.verificarApagarImagemNaoVinculadaSave()
     }
 
     override fun onStop() {
@@ -85,7 +81,6 @@ class HomeFragment : Fragment(), JogoAdapter.OnClickJogoListener {
     }
 
     override fun onClickJogo(documentSnapshot: DocumentSnapshot, position: Int) {
-        viewModel.jogoClicado = documentSnapshot.toObject(Jogo::class.java)!!
-        viewModel.goToJogo()
+        viewModel.onClickJogo(documentSnapshot)
     }
 }

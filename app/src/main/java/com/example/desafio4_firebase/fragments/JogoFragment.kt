@@ -28,15 +28,12 @@ class JogoFragment : Fragment() {
     ): View {
 
         _binding = FragmentJogoBinding.inflate(inflater, container, false)
-
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         atualizarUi()
 
         binding.fabEditar.setOnClickListener {
-            viewModel.adicionar = true
-            viewModel.editar = false
-            viewModel.goToEditar()
+            viewModel.onClickFabEditar()
         }
 
         return binding.root
@@ -62,6 +59,7 @@ class JogoFragment : Fragment() {
         binding.tvNomeJogo.text = viewModel.jogoClicado.nome
         binding.tvAnoLancamento.text = viewModel.jogoClicado.anoLancamento
         binding.tvDescricaoJogo.text = viewModel.jogoClicado.descricao
-        Glide.with(binding.root.context).load(viewModel.jogoClicado.urlImagem).into(binding.ivCapaJogo)
+        Glide.with(binding.root.context).load(viewModel.jogoClicado.urlImagem)
+            .into(binding.ivCapaJogo)
     }
 }

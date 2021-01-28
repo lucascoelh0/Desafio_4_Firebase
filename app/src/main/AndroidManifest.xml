@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Desafio4Firebase">
+        android:theme="@style/Theme.Desafio4FirebaseNight">
         <activity android:name=".activities.SplashActivity"></activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Desafio4Firebase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Desafio4FirebaseNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/verdeClaro</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

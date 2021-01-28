@@ -26,7 +26,6 @@ class EditarJogoFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var alertDialog: AlertDialog
     private lateinit var storageReference: StorageReference
-    private var urlImagem = ""
     private val CODE_IMG = 1000
     private var _binding: FragmentEditarJogoBinding? = null
     private val binding get() = _binding!!
@@ -50,11 +49,14 @@ class EditarJogoFragment : Fragment() {
 
         binding.includeEditarJogoBody.btnSave.setOnClickListener {
             if (binding.includeEditarJogoBody.etNome.text.toString().isNotEmpty()) {
-                val jogo = getDados()
-                if (!updateJogo(jogo)) {
-                    sendJogo(jogo)
-                }
-                viewModel.goToHome()
+                val jogo = viewModel.getDados(
+                    binding.includeEditarJogoBody.etNome.text.toString(),
+                    binding.includeEditarJogoBody.etAnoLancamento.text.toString(),
+                    binding.includeEditarJogoBody.etDescricao.text.toString()
+                )
+
+                viewModel.salvarJogo(jogo)
+
             } else {
                 Toast.makeText(context, "Informe o nome do jogo", Toast.LENGTH_LONG).show()
             }
@@ -78,7 +80,7 @@ class EditarJogoFragment : Fragment() {
         _binding = null
     }
 
-    fun atualizarCampos() {
+    private fun atualizarCampos() {
 
         val jogoClicado = viewModel.jogoClicado
 
@@ -87,50 +89,25 @@ class EditarJogoFragment : Fragment() {
             includeEditarJogoBody.etAnoLancamento.setText(jogoClicado.anoLancamento)
             includeEditarJogoBody.etDescricao.setText(jogoClicado.descricao)
             if (jogoClicado.urlImagem.isNotEmpty()) {
+                viewModel.urlAntiga = jogoClicado.urlImagem
                 Glide.with(binding.root.context).load(jogoClicado.urlImagem).into(civFotoJogo)
             }
         }
     }
 
-    fun setIntent() {
+    private fun setIntent() {
         val intent = Intent()
         intent.type = "image/"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "captura imagem"), CODE_IMG)
     }
 
-    fun getDados(): MutableMap<String, Any> {
-        val jogo: MutableMap<String, Any> = HashMap()
-
-        jogo["nome"] = binding.includeEditarJogoBody.etNome.text.toString()
-        jogo["anoLancamento"] = binding.includeEditarJogoBody.etAnoLancamento.text.toString()
-        jogo["descricao"] = binding.includeEditarJogoBody.etDescricao.text.toString()
-        jogo["urlImagem"] = urlImagem
-
-        return jogo
-    }
-
-    fun sendJogo(jogo: MutableMap<String, Any>) {
-        val nome = binding.includeEditarJogoBody.etNome.text.toString()
-        viewModel.collectionReference.document(nome).set(jogo)
-    }
-
-    private fun updateJogo(jogo: MutableMap<String, Any>): Boolean {
-        var retorno = false
-        val nome = binding.includeEditarJogoBody.etNome.text.toString()
-        viewModel.collectionReference.document(nome).update(jogo).addOnSuccessListener {
-            retorno = true
-        }
-
-        return retorno
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CODE_IMG) {
+        if (requestCode == CODE_IMG && data != null && data.data != null) {
 
-            storageReference = FirebaseStorage.getInstance().getReference(data!!.dataString!!)
+            storageReference = FirebaseStorage.getInstance().getReference(data.dataString!!)
             alertDialog.show()
 
             val uploadTask = storageReference.putFile(data.data!!)
@@ -138,8 +115,9 @@ class EditarJogoFragment : Fragment() {
                 storageReference.downloadUrl
             }.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    urlImagem = task.result.toString()
-                    Glide.with(binding.root).load(urlImagem).into(binding.civFotoJogo)
+                    viewModel.urlAntiga = viewModel.jogoClicado.urlImagem
+                    viewModel.urlImagem = task.result.toString()
+                    Glide.with(binding.root).load(viewModel.urlImagem).into(binding.civFotoJogo)
                     alertDialog.dismiss()
                 }
             }
